@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #343434;
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,15 +13,28 @@ body {
 .calendar {
     display: inline-block;
     padding: 1.25rem;
-    border-radius: 0;
-    box-shadow: 0.125rem 0.125rem 0.625rem rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
+}
+
+button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #666;
 }
 
 .weekdays, .days {
@@ -38,9 +51,7 @@ body {
 
 .day, .empty-day {
     padding: 0.625rem;
-    border: 1px solid #ccc;
     background: #ffffff;
-    box-shadow: 0.125rem 0.125rem 0.3125rem rgba(0, 0, 0, 0.2);
     transition: transform 0.2s, background 0.3s;
 }
 
@@ -51,7 +62,6 @@ body {
 
 .empty-day {
     color: rgba(0, 0, 0, 0.3);
-    border: 1px solid #ddd;
 }
 
 .fade {

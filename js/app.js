@@ -1,34 +1,21 @@
-let currentDate = new Date();
+let date = new Date();
 
-function renderCalendar() {
-    const monthYear = document.getElementById("month-year");
-    const daysContainer = document.getElementById("calendar-days");
-
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const lastDate = new Date(year, month + 1, 0).getDate();
-    const prevMonthLastDate = new Date(year, month, 0).getDate();
-
-    monthYear.textContent = new Intl.DateTimeFormat('nl-NL', { month: 'long', year: 'numeric' }).format(currentDate);
+const render = () => {
+    let year = date.getFullYear(), month = date.getMonth();
+    let firstDay = new Date(year, month, 1).getDay();
+    let lastDate = new Date(year, month + 1, 0).getDate();
+    let prevLastDate = new Date(year, month, 0).getDate();
     
-    let days = [...Array(firstDay).keys()].map(i => `<div class="empty-day">${prevMonthLastDate - (firstDay - 1) + i}</div>`);
-    for (let i = 1; i <= lastDate; i++) {
-        days.push(`<div class="day">${i}</div>`);
-    }
-    while (days.length % 7) {
-        days.push(`<div class="empty-day"></div>`);
-    }
+    document.getElementById("month-year").textContent = new Intl.DateTimeFormat('nl-NL', { month: 'long', year: 'numeric' }).format(date);
 
-    daysContainer.innerHTML = days.join('');
-}
+    let days = [...Array(firstDay).fill().map((_, i) => `<div class="empty-day">${prevLastDate - firstDay + i + 1}</div>`)];
+    days.push(...[...Array(lastDate).keys()].map(i => `<div class="day">${i + 1}</div>`));
+    while (days.length % 7) days.push(`<div class="empty-day"></div>`);
 
-function changeMonth(offset) {
-    currentDate.setMonth(currentDate.getMonth() + offset);
-    renderCalendar();
-}
+    document.getElementById("calendar-days").innerHTML = days.join('');
+};
 
-document.getElementById('prev').addEventListener('click', () => changeMonth(-1));
-document.getElementById('next').addEventListener('click', () => changeMonth(1));
+document.getElementById('prev').onclick = () => (date.setMonth(date.getMonth() - 1), render());
+document.getElementById('next').onclick = () => (date.setMonth(date.getMonth() + 1), render());
 
-renderCalendar();
+render();
